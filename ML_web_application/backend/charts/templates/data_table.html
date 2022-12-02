@@ -1,0 +1,23 @@
+<!-- Table data -->
+<h2 class="pt-4">Section Details</h2>
+<div class="table-responsive">
+    {{table_data|safe}}
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if page_id > 1 %}
+        <li class="page-item"><a class="page-link" href="?page_id=1#table-data"><<</a></li>
+        <li class="page-item"><a class="page-link" href="?page_id={{page_id|add:"-1"}}#table-data">Previous</a></li>
+        {% endif %}
+        {% for i in data_size %}
+          {% if i < page_id|add:"4" and i > page_id|add:"-2"%}
+            <li class="page-item"><a class="page-link" href="?page_id={{i}}#table-data">{{i}}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_id < max_pag %}
+        <li class="page-item"><a class="page-link" href="?page_id={{page_id|add:"1"}}#table-data">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page_id={{max_pag}}#table-data">>></a></li>
+
+        {% endif %}
+    </ul>
+</nav>

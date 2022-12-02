@@ -1,0 +1,13 @@
+<div>
+    <div class="jumbotron">
+        <h4 >Django Upload file</h4>
+        <hr class="my-4">
+        <form method="POST" enctype="multipart/form-data" >
+            <!-- Very Important csrf Token -->
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <button type="submit" class="btn btn-info" style="background-color:#00bfff"> Submit </button>
+    </div>
+</div>

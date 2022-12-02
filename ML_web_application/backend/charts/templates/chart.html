@@ -1,0 +1,82 @@
+<script type="text/javascript">
+    var is_hidden = false;
+</script>
+
+{% if render_chart == 1 %}
+<form action="clear" method="get">
+    <button type="submit" class="btn btn-outline-danger">Clear Chart</button>
+</form>
+
+<form action="clear" method="get">
+    <button type="submit" class="btn btn-outline-danger">test</button>
+</form>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/chart.css' %}">
+{% include 'filters.html' %}
+
+<!-- Highcharts display -->
+<div class="border" id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+{% include 'data_table.html' %}
+
+<script>
+    _categories = {{ categories | safe }};
+    _values = {{ values | safe }};
+
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '{{group_filter}} per {{selected_filter}}'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: _categories,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '{{group_filter}}'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: "{{selected_filter}}",
+            data: _values
+
+        }]
+    });
+</script>
+
+<div>
+</div>
+{% elif data_loaded == 1 %}
+<form action="clear" method="get">
+    <button type="submit" class="btn btn-outline-danger">Clear Selected Data</button>
+</form>
+
+{% include 'filters.html' %}
+{% include 'data_table.html' %}
+{% else %}
+{% include 'data_upload.html' %}
+
+<p></p>
+{% endif %}

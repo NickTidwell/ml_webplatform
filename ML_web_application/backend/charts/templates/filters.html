@@ -1,0 +1,52 @@
+
+
+<div class="filters_container" style="display:inline-grid;">
+
+<div class="filter_box" style="display:inline-flex; align-items: center; margin-bottom: 24px;">
+    <h6 style="padding-right:10px; width: 120px;">Filter on: </h6>
+
+
+    {% for label, format in filters.items %}
+    <form action="set_filter" method="post" style="padding-right: 10px; margin: auto">
+        {% if label == selected_filter %}
+        <button type="submit" class="btn btn-info" style="background-color:#00bfff" name="filter_btn" value={{label}}
+        style="min-width: 120px; width: fit-content">
+            {% csrf_token %}
+            {{label}} <span class="badge badge-light"></span>
+        </button>
+        {% else %}
+        <button type="submit" class="btn btn-primary" name="filter_btn" value={{label}} style="min-width: 120px; width: fit-content">
+            {% csrf_token %}
+            {{label}} <span class="badge badge-light"></span>
+        </button>
+        {% endif %}
+
+    </form>
+    {% endfor %}
+
+</div>
+
+<div class="filter_box" style="display:inline-flex; align-items: center; margin-bottom: 24px;">
+    <h6 style="padding-right:10px; width: 120px;">Group by on: </h6>
+
+    {% for label, format in filters.items %}
+    <form action="set_group" method="post" style="padding-right: 10px; margin: auto">
+        {% if label == group_filter %}
+        <button type="submit" class="btn btn-info" style="background-color:#00bfff" name="group_filter" value={{label}} style="min-width: 120px; width: fit-content">
+            {% csrf_token %}
+            {{label}} <span class="badge badge-light"></span>
+        </button>
+        {% else %}
+
+        <button type="submit" class="btn btn-primary" name="group_filter" value={{label}} style="min-width: 120px; width: fit-content">
+            {% csrf_token %}
+            {{label}} <span class="badge badge-light"></span>
+        </button>
+        {% endif %}
+
+    </form>
+    {% endfor %}
+
+</div>
+
+</div>
